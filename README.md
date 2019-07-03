@@ -1,5 +1,7 @@
 #Lab 26: NoSQL and DynamoDB
 
+* [Deployed Site](http://taskmaster-env.vnw2wvs5gu.us-east-2.elasticbeanstalk.com/)
+
  It’s a task-tracking application with the same basic goal as Trello: allow users to keep track of tasks to be done and their status. 
 
   *Day two:*
