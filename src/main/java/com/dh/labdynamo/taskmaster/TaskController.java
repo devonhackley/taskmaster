@@ -1,21 +1,17 @@
 package com.dh.labdynamo.taskmaster;
 
-import org.apache.http.protocol.HTTP;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.*;
 
-import java.awt.*;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
-@Controller
+@RestController
 public class TaskController {
 
     @Autowired
@@ -29,8 +25,8 @@ public class TaskController {
     }
 
     @PostMapping("/tasks")
-    public ResponseEntity<Task> createNewTask(String title, String description){
-        Task task = new Task(title, description);
+    public ResponseEntity<Task> createNewTask(String title, String description, String assignee){
+        Task task = new Task(title, description, assignee);
         taskRepository.save(task);
         return new ResponseEntity(task, HttpStatus.OK);
     }
@@ -51,4 +47,28 @@ public class TaskController {
             System.out.println("No tasks in the database");
         }
     }
+
+    @GetMapping("/users/{name}/tasks")
+    public ResponseEntity<Task> getAllUserTask(@PathVariable String name){
+        List<Task> tasks = taskRepository.findAllByAssignee(name);
+        return new ResponseEntity(tasks, HttpStatus.OK);
+    }
+
+    @PutMapping("/tasks/{id}/assign/{assignee}")
+    public void assignTask(@PathVariable UUID id, @PathVariable String assignee){
+        Optional<Task> task = taskRepository.findById(id);
+        if(task.isPresent()){
+            if(task.get().getAssignee() != assignee){
+                task.get().setStatus("Assigned");
+                task.get().setAssignee(assignee);
+                taskRepository.save(task.get());
+            } else {
+                System.out.println("Unable to assign task");
+            }
+        } else {
+            System.out.println("No tasks in the database");
+        }
+    }
+
+
 }
