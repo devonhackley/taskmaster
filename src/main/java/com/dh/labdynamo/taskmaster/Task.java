@@ -16,6 +16,7 @@ public class Task {
     private String status;
     private String assignee;
 
+    @DynamoDBAttribute
     public String getAssignee() {
         return assignee;
     }
@@ -73,6 +74,7 @@ public class Task {
     public Task(String title, String description, String assignee){
         this.title = title;
         this.description = description;
+        // Check string if null: https://stackoverflow.com/questions/49295291/best-method-to-check-if-a-value-of-a-string-is-null-in-java
         this.status = Objects.equals(null,assignee) ? "Available" : "Assigned";
         this.assignee = assignee;
     }

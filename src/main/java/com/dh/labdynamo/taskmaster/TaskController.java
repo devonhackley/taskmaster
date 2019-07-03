@@ -58,8 +58,7 @@ public class TaskController {
     public void assignTask(@PathVariable UUID id, @PathVariable String assignee){
         Optional<Task> task = taskRepository.findById(id);
         if(task.isPresent()){
-            System.out.println(task.get());
-            if(task.get().getStatus() != "Finished" || Objects.equals(null,task.get().getAssignee()) || task.get().getStatus() != "Finished" && task.get().getAssignee() != assignee){
+            if(task.get().getAssignee() != assignee){
                 task.get().setStatus("Assigned");
                 task.get().setAssignee(assignee);
                 taskRepository.save(task.get());
