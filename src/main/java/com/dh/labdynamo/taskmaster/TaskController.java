@@ -3,14 +3,13 @@ package com.dh.labdynamo.taskmaster;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
+@CrossOrigin
 @RestController
 public class TaskController {
 
@@ -69,6 +68,10 @@ public class TaskController {
             System.out.println("No tasks in the database");
         }
     }
+
+    //TODO: Add in POST /tasks/{id}/images
+
+    //TODO: GET /tasks/{id}
 
 
 }
