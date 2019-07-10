@@ -18,6 +18,7 @@ public class Task {
     private String imageURL;
     private String imageResizedURL;
 
+    @DynamoDBAttribute
     public String getImageResizedURL() {
         return imageResizedURL;
     }
@@ -25,7 +26,7 @@ public class Task {
     public void setImageResizedURL(String imageResizedURL) {
         this.imageResizedURL = imageResizedURL;
     }
-
+    @DynamoDBAttribute
     public String getImageURL() {
         return imageURL;
     }
