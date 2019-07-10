@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,6 +13,9 @@ import java.util.UUID;
 @CrossOrigin
 @RestController
 public class TaskController {
+
+    @Autowired
+    S3Client s3Client;
 
     @Autowired
     TaskRepository taskRepository;
@@ -69,9 +73,32 @@ public class TaskController {
         }
     }
 
-    //TODO: Add in POST /tasks/{id}/images
+    @PostMapping("/tasks/{id}/images")
+    public ResponseEntity<Task> addImages(@PathVariable UUID id, @RequestPart(value = "file") MultipartFile file){
+        // grab task from db
+        Optional<Task> task = taskRepository.findById(id);
+        // upload to s3, update task and save to db
+        if(task.isPresent()){
+            String pic = s3Client.uploadFile(file);
+           task.get().setImageURL(pic);
+           taskRepository.save(task.get());
+        } else {
+            System.out.println("No tasks in the database");
+        }
 
-    //TODO: GET /tasks/{id}
+        // return task back to client
+        return new ResponseEntity(task, HttpStatus.OK);
+    }
 
+    @GetMapping("/tasks/{id}")
+    public ResponseEntity<Task> getTaskById(@PathVariable UUID id){
+        Optional<Task> task = taskRepository.findById(id);
+        // upload to s3, update task and save to db
+        if(task.isPresent()){
+            return new ResponseEntity(task, HttpStatus.OK);
+        } else {
+            return new ResponseEntity(task, HttpStatus.BAD_REQUEST);
+        }
+    }
 
 }

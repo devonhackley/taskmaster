@@ -15,6 +15,15 @@ public class Task {
     private String description;
     private String status;
     private String assignee;
+    private String imageURL;
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
+    }
 
     @DynamoDBAttribute
     public String getAssignee() {
