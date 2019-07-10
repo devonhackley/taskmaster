@@ -16,6 +16,15 @@ public class Task {
     private String status;
     private String assignee;
     private String imageURL;
+    private String imageResizedURL;
+
+    public String getImageResizedURL() {
+        return imageResizedURL;
+    }
+
+    public void setImageResizedURL(String imageResizedURL) {
+        this.imageResizedURL = imageResizedURL;
+    }
 
     public String getImageURL() {
         return imageURL;

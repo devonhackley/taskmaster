@@ -73,6 +73,19 @@ public class TaskController {
         }
     }
 
+    @PutMapping("/tasks/{id}/images/resize")
+    public ResponseEntity<Task> addResizedImageUrl(@PathVariable UUID id, @RequestBody String url){
+        Optional<Task> task = taskRepository.findById(id);
+        if(task.isPresent()){
+            task.get().setImageResizedURL(url);
+            taskRepository.save(task.get());
+        } else {
+            System.out.println("No tasks in the database");
+            return new ResponseEntity(task, HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity(task, HttpStatus.OK);
+    }
+
     @PostMapping("/tasks/{id}/images")
     public ResponseEntity<Task> addImages(@PathVariable UUID id, @RequestPart(value = "file") MultipartFile file){
         // grab task from db
@@ -84,6 +97,7 @@ public class TaskController {
            taskRepository.save(task.get());
         } else {
             System.out.println("No tasks in the database");
+            return new ResponseEntity(task, HttpStatus.BAD_REQUEST);
         }
 
         // return task back to client
