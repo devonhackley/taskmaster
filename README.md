@@ -1,6 +1,6 @@
 #Lab 26: NoSQL and DynamoDB
 
-* [Deployed Site](http://taskmaster-env.vnw2wvs5gu.us-east-2.elasticbeanstalk.com/)
+* [Deployed Site](http://taskmaster2.us-west-2.elasticbeanstalk.com/)
 
  It’s a task-tracking application with the same basic goal as Trello: allow users to keep track of tasks to be done and their status. 
 
@@ -8,6 +8,7 @@
     Now the application should be able to assign a user to a task and grab all tasks for a given user.
   *Day three:*
     Now the application should be able to attach an image to a task, be able to return a task with an image url attached to it
+  *Day four:* Now application should be able to add a thumbnail of an image if that image is added to a task
 
  ## Architecture
 
@@ -37,4 +38,6 @@
   *Day Three:*
     * `/tasks/{id}/images`: will add a image to a given task
     * `/tasks/{id}`: will grab a single task (should have s3 link)
+
+
   
