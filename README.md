@@ -38,6 +38,11 @@
   *Day Three:*
     * `/tasks/{id}/images`: will add a image to a given task
     * `/tasks/{id}`: will grab a single task (should have s3 link)
+  *Day Four:*
+    * Added lambda function that will resize an images added to s3 
+
+  *Day Five:*
+    * Add a lambda warmer that will "re-warm" the function every minute
 
 
   
