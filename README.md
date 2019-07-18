@@ -43,6 +43,7 @@
 
   *Day Five:*
     * Add a lambda warmer that will "re-warm" the function every minute
+    * ![warmer](assets/warmer.png)
 
 
   
